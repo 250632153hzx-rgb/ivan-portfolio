@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>OBSBOT Meet Series – Ivan Design</title>
+
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+body{margin:0;padding:20px 0 60px;background:#0e0e0e;color:#fff;font-family:"IBM Plex Mono",monospace;}
+
+.back-bar{width:72%;max-width:1200px;margin:0 auto 10px;}
+.back-bar a{color:#aaa;font-size:.9rem;text-decoration:none;}
+.back-bar a:hover{color:#fff;}
+
+.title-block{
+  width:72%;max-width:1200px;
+  margin:18px auto 40px;text-align:center;
+}
+.title-block h1{
+  font-size:2.3em;font-weight:600;
+  letter-spacing:3px;margin:0 0 14px;
+}
+.title-block p{
+  color:#c2c2c2;font-weight:300;line-height:1.7;
+  max-width:640px;margin:0 auto;font-size:.98rem;
+}
+.title-divider{
+  width:55px;height:1px;border-radius:2px;
+  margin:22px auto 0;
+  background:rgba(255,255,255,.25);
+}
+
+/* layout */
+.images-wrapper{width:72%;max-width:1200px;margin:40px auto 0;}
+.images-wrapper img,.project-video{width:100%;border-radius:10px;margin-bottom:28px;cursor:pointer;}
+
+.row{
+  display:flex;gap:30px;margin:60px 0;
+}
+.row img{width:47%;border-radius:10px;}
+
+@media(max-width:768px){
+  .images-wrapper{width:90%;}
+  .row{flex-direction:column;gap:20px;}
+  .row img{width:100%;}
+}
+
+/* Fade */
+.fade{opacity:0;transform:translateY(25px);transition:all .9s ease;}
+.fade.visible{opacity:1;transform:translateY(0);}
+
+/* Lightbox */
+#lightbox{
+  position:fixed;inset:0;display:flex;
+  justify-content:center;align-items:center;
+  background:rgba(0,0,0,.85);
+  opacity:0;pointer-events:none;
+  transition:.3s;z-index:9999;
+}
+#lightbox.active{opacity:1;pointer-events:auto;}
+#lightbox img{max-width:90%;max-height:90%;border-radius:12px;}
+
+.lightbox-arrow{
+  position:absolute;top:50%;transform:translateY(-50%);
+  font-size:2.6rem;color:#fff;cursor:pointer;padding:10px 20px;
+}
+.lightbox-arrow.left{left:30px;}
+.lightbox-arrow.right{right:30px;}
+</style>
+</head>
+
+<body>
+
+<div class="back-bar">
+  <a href="index.html">← Back to portfolio</a>
+</div>
+
+<!-- ★ Unified Title Block -->
+<div class="title-block fade">
+  <h1>OBSBOT MEET SERIES</h1>
+  <p>
+    Product renders for the OBSBOT Meet series, set in calm meeting-room atmospheres.
+    The focus is on clear geometry, subtle reflections and a cinematic balance
+    between warm and cool light.
+  </p>
+  <div class="title-divider"></div>
+</div>
+
+<div class="images-wrapper">
+
+  <video class="project-video fade" autoplay loop muted playsinline controls>
+    <source src="images06/P6_animation1.mp4">
+  </video>
+
+  <img class="fade" src="images06/P6_01.png" />
+
+  <video class="project-video fade" autoplay loop muted playsinline controls>
+    <source src="images06/P6_animation2.mp4">
+  </video>
+
+  <img class="fade" src="images06/P6_02.png" />
+
+  <video class="project-video fade" autoplay loop muted playsinline controls>
+    <source src="images06/P6_animation3.mp4">
+  </video>
+
+  <div class="row fade">
+    <img src="images06/P6_04_1.png">
+    <img src="images06/P6_04_2.png">
+  </div>
+
+  <div class="row fade">
+    <img src="images06/P6_04_3.png">
+    <img src="images06/P6_04_4.png">
+  </div>
+
+  <img class="fade" src="images06/P6_03.jpg" />
+
+</div>
+
+<!-- Lightbox -->
+<div id="lightbox">
+  <span class="lightbox-arrow left">&#10094;</span>
+  <img src="">
+  <span class="lightbox-arrow right">&#10095;</span>
+</div>
+
+<script>
+const fades=document.querySelectorAll('.fade');
+const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');})},{threshold:.15});
+fades.forEach(f=>obs.observe(f));
+
+const imgs=[...document.querySelectorAll('.images-wrapper img')];
+const lb=document.getElementById('lightbox');
+const lbImg=lb.querySelector('img');
+let idx=0;
+imgs.forEach((img,i)=>img.onclick=()=>{idx=i;lb.classList.add('active');lbImg.src=img.src;});
+document.querySelector('.lightbox-arrow.left').onclick=()=>{idx=(idx-1+imgs.length)%imgs.length;lbImg.src=imgs[idx].src;}
+document.querySelector('.lightbox-arrow.right').onclick=()=>{idx=(idx+1)%imgs.length;lbImg.src=imgs[idx].src;}
+lb.onclick=e=>{if(e.target===lb)lb.classList.remove('active');};
+</script>
+
+</body>
+</html>

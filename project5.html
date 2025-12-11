@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>OBSBOT Tiny Series – Ivan Design</title>
+
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+body { margin:0; padding:20px 0 60px; background:#0e0e0e; color:#fff; font-family:"IBM Plex Mono", monospace; }
+
+/* Back */
+.back-bar { width:72%; max-width:1200px; margin:0 auto 10px; }
+.back-bar a { color:#aaa; text-decoration:none; font-size:0.9rem; }
+.back-bar a:hover { color:#fff; }
+
+/* Title Block — unified style */
+.title-block {
+  width:72%;
+  max-width:1200px;
+  margin:18px auto 40px;
+  text-align:center;
+}
+.title-block h1 {
+  font-weight:600;
+  font-size:2.3em;
+  letter-spacing:3px;
+  margin:0 0 14px;
+}
+.title-block p {
+  color:#c2c2c2;
+  font-weight:300;
+  line-height:1.7;
+  max-width:640px;
+  margin:0 auto;
+  font-size:0.98rem;
+}
+.title-divider {
+  width:55px;
+  height:1px;
+  background:rgba(255,255,255,0.25);
+  margin:22px auto 0;
+  border-radius:2px;
+}
+
+/* Images & layout */
+.images-wrapper { width:72%; max-width:1200px; margin:40px auto 0; }
+.images-wrapper img,
+.project-video {
+  width:100%; border-radius:10px;
+  margin-bottom:28px;
+  cursor:pointer;
+}
+
+/* two-video row */
+.video-row { display:flex; gap:26px; margin:50px 0; }
+.small-video { width:48%; border-radius:10px; }
+
+/* rows */
+.row { display:flex; gap:30px; margin:60px 0; }
+.row img { width:47%; border-radius:10px; }
+
+/* Fade-in */
+.fade { opacity:0; transform:translateY(25px); transition:all .9s ease; }
+.fade.visible { opacity:1; transform:translateY(0); }
+
+/* Lightbox */
+#lightbox {
+  position:fixed; inset:0;
+  background:rgba(0,0,0,0.85);
+  display:flex; justify-content:center; align-items:center;
+  opacity:0; pointer-events:none; transition:.3s;
+}
+#lightbox.active { opacity:1; pointer-events:auto; }
+#lightbox img { max-width:90%; max-height:90%; border-radius:12px; }
+.lightbox-arrow {
+  position:absolute; top:50%; transform:translateY(-50%);
+  color:#fff; font-size:2.6rem; padding:10px 20px; cursor:pointer;
+}
+.lightbox-arrow.left { left:30px; }
+.lightbox-arrow.right { right:30px; }
+
+/* mobile */
+@media(max-width:768px){
+  .images-wrapper{ width:90%; }
+  .video-row,.row{ flex-direction:column; gap:20px; }
+  .small-video,.row img { width:100%; }
+}
+</style>
+</head>
+
+<body>
+
+<div class="back-bar">
+  <a href="index.html">← Back to portfolio</a>
+</div>
+
+<!-- ★ Unified Title Block -->
+<div class="title-block fade">
+  <h1>OBSBOT TINY SERIES</h1>
+  <p>
+    A series of 3D renders for the OBSBOT Tiny lineup — focusing on compact proportions,
+    precise edges and quiet, atmospheric lighting that frames the product like a small stage.
+  </p>
+  <div class="title-divider"></div>
+</div>
+
+<div class="images-wrapper">
+
+  <video class="project-video fade" autoplay muted loop playsinline controls>
+    <source src="images05/P5_animation01.mov" type="video/mp4">
+  </video>
+
+  <video class="project-video fade" autoplay muted loop playsinline controls>
+    <source src="images05/P5_animation02.mp4" type="video/mp4">
+  </video>
+
+  <video class="project-video fade" autoplay muted loop playsinline controls>
+    <source src="images05/P5_animation03.mp4" type="video/mp4">
+  </video>
+
+  <img class="fade" src="images05/P5_02.png" />
+
+  <div class="video-row fade">
+    <video class="small-video" autoplay muted loop playsinline controls>
+      <source src="images05/P5_animation04.mp4">
+    </video>
+    <video class="small-video" autoplay muted loop playsinline controls>
+      <source src="images05/P5_animation05.mp4">
+    </video>
+  </div>
+
+  <img class="fade" src="images05/P5_06.png" />
+
+  <div class="row fade">
+    <img src="images05/P5_03_01.png">
+    <img src="images05/P5_03_02.png">
+  </div>
+
+  <div class="row fade">
+    <img src="images05/P5_04_01.png">
+    <img src="images05/P5_04_02.png">
+  </div>
+
+  <div class="row fade">
+    <img src="images05/P5_05_01.jpg">
+    <img src="images05/P5_05_02.jpg">
+  </div>
+</div>
+
+<!-- Lightbox -->
+<div id="lightbox">
+  <span class="lightbox-arrow left">&#10094;</span>
+  <img src="">
+  <span class="lightbox-arrow right">&#10095;</span>
+</div>
+
+<script>
+/* Fade */
+const fades=document.querySelectorAll('.fade');
+const obs=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('visible')})},{threshold:.15});
+fades.forEach(x=>obs.observe(x));
+
+/* Lightbox */
+const items=[...document.querySelectorAll('.images-wrapper img')];
+const lb=document.getElementById('lightbox');
+const lbImg=lb.querySelector('img');
+let idx=0;
+items.forEach((img,i)=>img.onclick=()=>{idx=i;lb.classList.add('active');lbImg.src=img.src;});
+document.querySelector('.lightbox-arrow.left').onclick=()=>{idx=(idx-1+items.length)%items.length;lbImg.src=items[idx].src;}
+document.querySelector('.lightbox-arrow.right').onclick=()=>{idx=(idx+1)%items.length;lbImg.src=items[idx].src;}
+lb.onclick=e=>{if(e.target===lb)lb.classList.remove('active');};
+</script>
+</body>
+</html>

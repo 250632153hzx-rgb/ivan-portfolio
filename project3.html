@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>OBSBOT Tail2 – Ivan Design</title>
+
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+  #progress-bar {
+    position: fixed;
+    top: 0; left: 0;
+    width: 0%;
+    height: 3px;
+    background: #ffffff;
+    z-index: 9999;
+    transition: width 0.15s ease-out;
+  }
+
+  body { margin: 0; padding: 20px 0 60px; background: #0e0e0e; color: #fff; font-family: "IBM Plex Mono", monospace; }
+
+  .back-bar { max-width: 1200px; width: 72%; margin: 0 auto 10px; }
+  .back-bar a { color: #aaa; text-decoration: none; font-size: 0.9rem; letter-spacing: 1px; }
+  .back-bar a:hover { color: #fff; }
+
+  .title-block { width: 72%; max-width: 1200px; margin: 18px auto 40px; text-align: center; }
+  .title-block h1 {
+    font-weight: 600;
+    letter-spacing: 3px;
+    margin: 0 0 14px;
+    font-size: 2.3rem;
+  }
+  .title-block p {
+    color: #c2c2c2;
+    line-height: 1.7;
+    margin: 0;
+    font-size: 0.98rem;
+    max-width: 640px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .title-divider {
+    width: 55px;
+    height: 1px;
+    background: rgba(255,255,255,0.25);
+    margin: 22px auto 0;
+    border-radius: 2px;
+  }
+
+  .images-wrapper { width: 72%; max-width: 1200px; margin: 40px auto 0; }
+
+  .full {
+    width: 100%;
+    border-radius: 10px;
+    margin-bottom: 50px;
+    cursor: pointer;
+    display: block;
+  }
+
+  .project-video {
+    width: 100%;
+    border-radius: 10px;
+    display: block;
+    margin: 40px auto 50px;
+  }
+
+  .row-two {
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+    margin-bottom: 60px;
+  }
+  .row-two img {
+    width: 50%;
+    border-radius: 10px;
+    cursor: pointer;
+    display: block;
+  }
+
+  @media (max-width: 768px) {
+    .back-bar,
+    .title-block,
+    .images-wrapper {
+      width: 90%;
+    }
+    .row-two {
+      flex-direction: column;
+      gap: 24px;
+    }
+    .row-two img { width: 100%; }
+  }
+
+  /* Fade-in */
+  .fade {
+    opacity: 0;
+    transform: translateY(25px);
+    transition: all 0.9s ease;
+  }
+  .fade.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Lightbox */
+  #lightbox {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    background: rgba(0,0,0,0.85);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .3s ease;
+    z-index: 9999;
+  }
+  #lightbox.active {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  #lightbox img {
+    max-width: 90%;
+    max-height: 90%;
+    border-radius: 12px;
+  }
+  .lightbox-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 2.4rem;
+    color: white;
+    cursor: pointer;
+    padding: 10px 20px;
+    user-select: none;
+  }
+  .lightbox-arrow.left { left: 30px; }
+  .lightbox-arrow.right { right: 30px; }
+  
+  .the-end {
+  text-align: center;
+  margin: 80px auto 40px;
+  color: #666;
+  font-size: 0.95rem;
+  letter-spacing: 2px;
+  font-weight: 300;
+  opacity: 0.6;
+}
+.the-end:hover {
+  opacity: 1;
+  color: #999;
+}
+</style>
+</head>
+
+<body>
+
+<div id="progress-bar"></div>
+
+<div class="back-bar">
+  <a href="index.html">← Back to portfolio</a>
+</div>
+
+<div class="title-block fade">
+  <h1>OBSBOT TAIL 2</h1>
+  <p>
+    AI-Powered PTZR 4K
+Live Production Camera
+  </p>
+  <div class="title-divider"></div>
+</div>
+
+<div class="images-wrapper">
+
+  <img class="full fade" src="images03/P3_01.png" alt="OBSBOT Tail2 – Frame 1" />
+
+  <video class="project-video fade" autoplay loop muted playsinline controls>
+    <source src="images03/P3_animation1.mp4" type="video/mp4">
+  </video>
+
+  <img class="full fade" src="images03/P3_05.png" alt="OBSBOT Tail2 – Frame 1" />
+
+   <img class="full fade" src="images03/P3_06.png" alt="OBSBOT Tail2 – Frame 1" />
+
+  <div class="row-two fade">
+    <img src="images03/P3_02.png" alt="OBSBOT Tail2 – Frame 2" />
+    <img src="images03/P3_03.png" alt="OBSBOT Tail2 – Frame 3" />
+  </div>
+
+  <img class="full fade" src="images03/P3_04.png" alt="OBSBOT Tail2 – Frame 4" />
+
+</div>
+
+<div id="lightbox">
+  <span class="lightbox-arrow left">&#10094;</span>
+  <img src="">
+  <span class="lightbox-arrow right">&#10095;</span>
+</div>
+
+<div class="the-end fade">— The End —</div>
+
+<script>
+/* 滚动进度条 */
+window.addEventListener('scroll', () => {
+  const scrollTop = window.scrollY;
+  const docHeight = document.body.scrollHeight - window.innerHeight;
+  const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+  document.getElementById('progress-bar').style.width = progress + "%";
+});
+
+/* Fade-in */
+const fades = document.querySelectorAll('.fade');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+},{ threshold: 0.15 });
+fades.forEach(el => observer.observe(el));
+
+/* Lightbox */
+const imgs = [...document.querySelectorAll('.images-wrapper img')];
+const lightbox = document.getElementById('lightbox');
+const lightboxImg = lightbox.querySelector('img');
+let currentIndex = 0;
+
+imgs.forEach((img, index) => {
+  img.addEventListener('click', () => {
+    currentIndex = index;
+    lightbox.classList.add('active');
+    lightboxImg.src = img.src;
+  });
+});
+
+document.querySelector('.lightbox-arrow.left').onclick = () => {
+  currentIndex = (currentIndex - 1 + imgs.length) % imgs.length;
+  lightboxImg.src = imgs[currentIndex].src;
+};
+document.querySelector('.lightbox-arrow.right').onclick = () => {
+  currentIndex = (currentIndex + 1) % imgs.length;
+  lightboxImg.src = imgs[currentIndex].src;
+};
+
+lightbox.onclick = (e) => { if (e.target === lightbox) lightbox.classList.remove('active'); };
+</script>
+
+</body>
+</html>

@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Ivan Design – Portfolio</title>
+
+<!-- Elegant Mono 字体 -->
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+  /* ========== GLOBAL ========== */
+  body {
+    margin: 0;
+    padding: 0;
+    background: #0e0e0e;
+    color: #ffffff;
+    font-family: "IBM Plex Mono", monospace;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  /* ========== HEADER ========== */
+  header {
+    padding: 22px 40px;
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 10;
+  }
+
+  .header-right {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+  }
+
+  /* Logo */
+  .logo-box img {
+    width: 62px;
+    opacity: 0.95;
+    transition: opacity 0.22s ease;
+  }
+  .logo-box img:hover { opacity: 1; }
+
+  /* CONTACT BUTTON */
+  .contact-btn {
+    font-size: 0.95rem;
+    letter-spacing: 2px;
+    cursor: pointer;
+    opacity: 0.85;
+    transition: opacity 0.25s ease;
+  }
+  .contact-btn:hover { opacity: 1; }
+
+  /* ========== LANGUAGE SWITCH ========== */
+  .lang-switch {
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+    opacity: 0.85;
+    cursor: pointer;
+  }
+
+  .lang-switch span {
+    margin: 0 3px;
+    transition: opacity 0.25s ease;
+  }
+
+  .lang-switch span:hover {
+    opacity: 1;
+  }
+
+  .lang-active {
+    opacity: 1 !important;
+    font-weight: 600;
+  }
+
+  /* ========== CONTACT DRAWER ========== */
+  #contact-drawer {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 300px;
+    height: 100vh;
+    background: rgba(25,25,25,0.97);
+    backdrop-filter: blur(8px);
+    border-left: 1px solid rgba(255,255,255,0.08);
+    padding: 40px 28px;
+    transform: translateX(100%);
+    opacity: 0;
+    transition: transform 0.4s cubic-bezier(.25,.8,.25,1), opacity 0.35s ease;
+    z-index: 9999;
+  }
+
+  #contact-drawer.active {
+    transform: translateX(0);
+    opacity: 1;
+  }
+
+  .contact-title {
+    font-weight: 600;
+    letter-spacing: 2px;
+    margin-bottom: 22px;
+    font-size: 1.05rem;
+  }
+
+  .contact-item {
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    opacity: 0.85;
+    font-size: 0.9rem;
+  }
+  .contact-item:hover { opacity: 1; }
+
+  .icon {
+    width: 18px;
+    height: 18px;
+    object-fit: contain;
+    opacity: 0.9;
+  }
+
+  /* ========== HERO ========== */
+  .hero {
+    text-align: center;
+    padding: 80px 20px 70px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* subtle gradient / vignette 背景 */
+  .hero::before {
+    content: "";
+    position: absolute;
+    inset: -20%;
+    background:
+      radial-gradient(circle at top center, rgba(255,255,255,0.06), transparent 60%),
+      radial-gradient(circle at bottom center, rgba(0,0,0,0.55), transparent 65%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .hero-inner {
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Title */
+  .hero h1 {
+    font-size: 2.9em;
+    font-weight: 600;
+    letter-spacing: 3px;
+    margin: 0 0 20px;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeUp 1s ease forwards;
+  }
+
+  /* Subtext */
+  .hero p {
+    margin-top: 5px;
+    color: #c8c8c8;
+    font-size: 1rem;
+    font-weight: 300;
+    line-height: 1.55;
+    letter-spacing: 0.4px;
+    max-width: 620px;
+    margin-left: auto;
+    margin-right: auto;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeUp 1.2s ease forwards;
+  }
+
+  /* Divider */
+  .hero-divider {
+    width: 55px;
+    height: 1px;
+    background: rgba(255,255,255,0.25);
+    margin: 22px auto 0;
+    border-radius: 2px;
+    opacity: 0;
+    transform: translateY(15px);
+    animation: fadeUp 1.4s ease forwards;
+  }
+
+  @keyframes fadeUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* ========== PROJECT GRID ========== */
+  .projects-wrapper {
+    width: 70%;
+    max-width: 1200px;
+    margin: 0 auto 90px;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 28px;
+  }
+
+  .card {
+    position: relative;
+    background: #141414;
+    border-radius: 12px;
+    overflow: hidden;
+    cursor: pointer;
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeUp 1.1s ease forwards;
+  }
+
+  .card:nth-child(2) { animation-delay: 0.15s; }
+  .card:nth-child(3) { animation-delay: 0.30s; }
+  .card:nth-child(4) { animation-delay: 0.45s; }
+  .card:nth-child(5) { animation-delay: 0.60s; }
+  .card:nth-child(6) { animation-delay: 0.75s; }
+  .card:nth-child(7) { animation-delay: 0.90s; }
+  .card:nth-child(8) { animation-delay: 1.05s; }
+
+  .card img,
+  .card video {
+    width: 100%;
+    display: block;
+    border-radius: 12px;
+    object-fit: cover;
+    transition: transform 0.35s ease;
+  }
+
+  /* hover 微动效 + overlay + WORK TITLE */
+  .card:hover img,
+  .card:hover video {
+    transform: scale(1.02);
+  }
+
+  .card-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.7), transparent 60%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    display: flex;
+    align-items: flex-end;
+    pointer-events: none;
+  }
+
+  .card-title {
+    font-size: 0.75rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #f5f5f5;
+    padding: 16px 18px 14px;
+  }
+
+  .card:hover .card-overlay {
+    opacity: 1;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    header {
+      padding: 18px 20px;
+    }
+    .hero {
+      padding: 60px 18px 50px;
+    }
+    .hero h1 {
+      font-size: 2.3em;
+      letter-spacing: 2px;
+    }
+    .projects-wrapper {
+      width: 86%;
+      margin-bottom: 70px;
+    }
+  }
+</style>
+</head>
+
+<body>
+
+<!-- CONTACT DRAWER -->
+<div id="contact-drawer">
+  <div class="contact-title">CONTACT</div>
+
+  <div class="contact-item">
+    <img class="icon" src="images/icon_mail.png" alt="Mail" />
+    <a href="mailto:250632153hzx@gmail.com">250632153hzx@gmail.com</a>
+  </div>
+
+  <div class="contact-item">
+    <img class="icon" src="images/icon_ig.png" alt="Instagram" />
+    <a href="https://instagram.com/zixuang_wong" target="_blank">zixuang_wong</a>
+  </div>
+
+  <div class="contact-item">
+    <img class="icon" src="images/icon_wechat.png" alt="WeChat" />
+    Orange_HZX
+  </div>
+</div>
+
+<header>
+  <div class="logo-box">
+    <img src="images/logo.png" alt="Ivan Logo" />
+  </div>
+
+  <div class="header-right">
+    <div class="contact-btn" onclick="toggleDrawer()">CONTACT</div>
+
+    <!-- Language Switch -->
+    <div class="lang-switch">
+      <span onclick="setLang('en')" id="btn-en">EN</span> |
+      <span onclick="setLang('zh')" id="btn-zh">中文</span>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-inner">
+    <h1>IVAN DESIGN</h1>
+
+    <p id="hero-text">
+      Welcome to my creative space<br><br>
+      I’m a 3D rendering artist based in Shenzhen, focusing on product visualization,
+      spatial storytelling and motion design.<br>
+      Here is a selection of my personal and commercial projects — feel free to reach out anytime.
+    </p>
+
+    <div class="hero-divider"></div>
+  </div>
+</section>
+
+<div class="projects-wrapper">
+  <div class="grid">
+
+    <!-- 1. Kodak Chacharm -->
+    <a href="project1.html">
+      <div class="card">
+        <video autoplay loop muted playsinline>
+          <source src="images/Kodak_animation.mp4" type="video/mp4">
+        </video>
+        <div class="card-overlay">
+          <div class="card-title">KODAK CHACHARM</div>
+        </div>
+      </div>
+    </a>
+
+    <!-- 2. The Xbox Elite Controller 3 -->
+    <a href="project2.html">
+      <div class="card">
+        <img src="images02/P2_banner.png" />
+        <div class="card-overlay">
+          <div class="card-title">THE XBOX ELITE CONTROLLER</div>
+        </div>
+      </div>
+    </a>
+
+    <!-- 3. OBSBOT Tail2 -->
+    <a href="project3.html">
+      <div class="card">
+        <img src="images03/P3_banner.png" />
+        <div class="card-overlay">
+          <div class="card-title">OBSBOT TAIL 2</div>
+        </div>
+      </div>
+    </a>
+
+    <!-- 4. OBSBOT Tail Air -->
+    <a href="project4.html">
+      <div class="card">
+        <img src="images04/P4_banner.png" />
+        <div class="card-overlay">
+          <div class="card-title">OBSBOT TAIL AIR</div>
+        </div>
+      </div>
+    </a>
+
+    <!-- 5. OBSBOT Tiny Series -->
+    <a href="project5.html">
+      <div class="card">
+        <video autoplay loop muted playsinline>
+          <source src="images05/Tiny2_animation01.mp4" type="video/mp4">
+        </video>
+        <div class="card-overlay">
+          <div class="card-title">OBSBOT TINY SERIES</div>
+        </div>
+      </div>
+    </a>
+
+    <!-- 6. OBSBOT Meet Series -->
+    <a href="project6.html">
+      <div class="card">
+        <img src="images06/P6_banner.png" />
+        <div class="card-overlay">
+          <div class="card-title">OBSBOT MEET SERIES</div>
+        </div>
+      </div>
+    </a>
+
+    <!-- 7. OBSBOT Talent -->
+    <a href="project7.html">
+      <div class="card">
+        <img src="images07/P7_banner.png" />
+        <div class="card-overlay">
+          <div class="card-title">OBSBOT TALENT</div>
+        </div>
+      </div>
+    </a>
+
+    <!-- 8. Triumph Stag 1970 -->
+    <a href="project8.html">
+      <div class="card">
+        <img src="images08_car/P8_banner.png" />
+        <div class="card-overlay">
+          <div class="card-title">TRIUMPH STAG 1970</div>
+        </div>
+      </div>
+    </a>
+
+  </div>
+</div>
+
+<script>
+/* Toggle contact drawer */
+function toggleDrawer() {
+  const drawer = document.getElementById("contact-drawer");
+  drawer.classList.toggle("active");
+}
+
+/* Close drawer when clicking outside */
+document.addEventListener("click", function(e) {
+  const drawer = document.getElementById("contact-drawer");
+  const btn = document.querySelector(".contact-btn");
+
+  if (!drawer.contains(e.target) && !btn.contains(e.target)) {
+    drawer.classList.remove("active");
+  }
+});
+
+/* LANGUAGE SWITCH */
+const heroText = document.getElementById("hero-text");
+const btnEN = document.getElementById("btn-en");
+const btnZH = document.getElementById("btn-zh");
+
+const textEN = `
+  Welcome to my creative space<br><br>
+  I’m a 3D rendering artist based in Shenzhen, focusing on product visualization,
+  spatial storytelling and motion design.<br>
+  Here is a selection of my personal and commercial projects — feel free to reach out anytime.
+`;
+
+const textZH = `
+  欢迎来到我的创意空间<br><br>
+  我是一名来自深圳的 3D 渲染师，专注于产品视觉、空间表现与动效设计。<br>
+  这里展示的是我的部分个人与商业项目，期待与你交流合作。
+`;
+
+function setLang(lang) {
+  if (lang === "en") {
+    heroText.innerHTML = textEN;
+    btnEN.classList.add("lang-active");
+    btnZH.classList.remove("lang-active");
+  } else {
+    heroText.innerHTML = textZH;
+    btnZH.classList.add("lang-active");
+    btnEN.classList.remove("lang-active");
+  }
+}
+
+setLang("en");
+</script>
+
+</body>
+</html>
